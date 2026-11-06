@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyStudy - Interactive Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">M</div>
+        <div><strong>MyStudy</strong><small>Interactive Edition</small></div>
+      </div>
+
+      <div class="nav-label">MENU UTAMA</div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-link" data-page="calendar">▦ <span>Calendar</span></button>
+        <button class="nav-link" data-page="timer">◷ <span>Focus Timer</span></button>
+        <button class="nav-link" data-page="tasks">✓ <span>My Tasks</span></button>
+        <button class="nav-link" data-page="notes">▤ <span>My Notes</span></button>
+        <button class="nav-link" data-page="analytics">▥ <span>Analytics</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="mini-profile">
+          <div class="avatar">S</div>
+          <div><strong id="sideName">Student</strong><small>Keep learning!</small></div>
+        </div>
+        <button class="nav-link" data-page="settings">⚙ <span>Settings</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="todayText">YOUR STUDY SPACE</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="top-actions">
+          <span class="date-chip" id="clock">00:00:00</span>
+          <div class="avatar top-avatar" id="topAvatar">S</div>
+        </div>
+      </header>
+
+      <section class="page active" id="dashboard">
+        <div class="welcome-card">
+          <div>
+            <span class="welcome-tag">✦ YOUR PERSONAL STUDY SPACE</span>
+            <h1>Make today<br>count<span>.</span></h1>
+            <p>Belajar sedikit demi sedikit, hasilnya akan berarti.</p>
+            <button class="primary-btn" data-go="tasks">Lihat tugas <span>→</span></button>
+          </div>
+          <div class="welcome-art">
+            <div class="sun"></div>
+            <div class="book book-one"></div>
+            <div class="book book-two"></div>
+            <div class="plant">✿</div>
+            <div class="sparkle">✦</div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-icon purple">✓</div>
+            <span>Total tugas selesai</span>
+            <strong id="doneStat">0</strong>
+            <small>Keep it up!</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon yellow">◷</div>
+            <span>Waktu fokus</span>
+            <strong id="focusStat">0 <small>menit</small></strong>
+            <small>Total waktu belajar</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon pink">✦</div>
+            <span>Total XP</span>
+            <strong id="xpStat">0 XP</strong>
+            <small id="levelStat">Level 1</small>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon green">♨</div>
+            <span>Study streak</span>
+            <strong id="streakStat">0 hari</strong>
+            <small>Hari belajar berturut-turut</small>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div><h3>Today's Tasks</h3><p>Daftar tugas belajarmu</p></div>
+              <button class="text-btn" data-go="tasks">Lihat semua →</button>
+            </div>
+            <div id="dashboardTasks" class="task-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h3>Level Progress</h3><p>Perjalanan belajarmu</p></div><span class="level-badge" id="levelBadge">Lv. 1</span></div>
+            <div class="level-circle" id="levelCircle"><div><strong id="levelPercent">0%</strong><small>progress</small></div></div>
+            <p class="center-text" id="xpMessage">Mulai kumpulkan XP!</p>
+            <div class="progress-track"><div id="xpBar" class="progress-fill"></div></div>
+            <small class="muted center-text" id="xpDetail">0 / 100 XP</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="calendar">
+        <div class="section-intro"><div><h2>Interactive Calendar</h2><p>Atur jadwal dan agenda belajarmu.</p></div><button class="primary-btn" id="addAgenda">+ Tambah agenda</button></div>
+        <article class="panel calendar-panel">
+          <div class="calendar-head">
+            <button class="circle-btn" id="prevMonth">‹</button>
+            <h3 id="monthLabel">Month Year</h3>
+            <button class="circle-btn" id="nextMonth">›</button>
+            <button class="soft-btn" id="todayBtn">Hari ini</button>
+          </div>
+          <div class="calendar-grid weekdays">
+            <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+          </div>
+          <div class="calendar-grid" id="calendarDays"></div>
+        </article>
+        <article class="panel agenda-panel">
+          <div class="panel-heading"><div><h3 id="selectedDateLabel">Agenda</h3><p>Agenda pada tanggal yang dipilih</p></div></div>
+          <div id="agendaList" class="task-list"></div>
+        </article>
+      </section>
+
+      <section class="page" id="timer">
+        <div class="section-intro"><div><h2>Focus Timer</h2><p>Fokus pada satu hal dalam satu waktu.</p></div></div>
+        <div class="timer-layout">
+          <article class="panel timer-panel">
+            <div class="timer-tabs">
+              <button class="timer-mode active" data-minutes="25" data-mode="Focus">Focus</button>
+              <button class="timer-mode" data-minutes="5" data-mode="Short Break">Short Break</button>
+              <button class="timer-mode" data-minutes="15" data-mode="Long Break">Long Break</button>
+            </div>
+            <div class="timer-ring" id="timerRing">
+              <div><span id="timerMode">FOCUS TIME</span><strong id="timerDisplay">25:00</strong><small id="timerHint">You can do it!</small></div>
+            </div>
+            <div class="timer-controls">
+              <button class="primary-btn" id="timerStart">▶ Start</button>
+              <button class="soft-btn" id="timerReset">↻ Reset</button>
+            </div>
+            <p class="muted center-text">Satu sesi fokus selesai = 25 menit waktu belajar.</p>
+          </article>
+          <article class="panel timer-info">
+            <h3>Focus Summary</h3>
+            <div class="focus-summary"><span>Total focus time</span><strong id="timerTotal">0 menit</strong></div>
+            <div class="focus-summary"><span>Completed sessions</span><strong id="sessionTotal">0</strong></div>
+            <div class="tip-box"><span>✦ Study tip</span><p>Jauhkan distraksi, siapkan kebutuhan belajar, dan istirahat sejenak setelah sesi fokus.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="tasks">
+        <div class="section-intro"><div><h2>My Tasks</h2><p>Kelola semua tugas dan target belajarmu.</p></div><button class="primary-btn" id="addTask">+ Tambah tugas</button></div>
+        <div class="task-filters">
+          <button class="filter-btn active" data-filter="all">Semua</button>
+          <button class="filter-btn" data-filter="active">Belum selesai</button>
+          <button class="filter-btn" data-filter="done">Selesai</button>
+        </div>
+        <article class="panel"><div id="allTasks" class="task-list"></div></article>
+      </section>
+
+      <section class="page" id="notes">
+        <div class="section-intro"><div><h2>My Notes</h2><p>Simpan ide dan catatan pentingmu.</p></div><button class="primary-btn" id="addNote">+ Buat catatan</button></div>
+        <input class="search-input" id="noteSearch" placeholder="⌕ Cari catatan...">
+        <div class="notes-grid" id="notesGrid"></div>
+      </section>
+
+      <section class="page" id="analytics">
+        <div class="section-intro"><div><h2>Smart Analytics</h2><p>Lihat perkembangan belajarmu.</p></div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon purple">✓</div><span>Tugas selesai</span><strong id="analyticsDone">0</strong></article>
+          <article class="stat-card"><div class="stat-icon yellow">◷</div><span>Total fokus</span><strong id="analyticsFocus">0 mnt</strong></article>
+          <article class="stat-card"><div class="stat-icon pink">✦</div><span>Total XP</span><strong id="analyticsXP">0</strong></article>
+          <article class="stat-card"><div class="stat-icon green">♨</div><span>Study streak</span><strong id="analyticsStreak">0 hari</strong></article>
+        </div>
+        <article class="panel chart-panel">
+          <div class="panel-heading"><div><h3>Weekly Activity</h3><p>Aktivitas fokus selama 7 hari terakhir</p></div></div>
+          <div class="chart" id="weeklyChart"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Study Overview</h3><p>Ringkasan aktivitasmu</p></div></div>
+          <div class="overview-row"><span>Agenda tersimpan</span><strong id="analyticsAgenda">0</strong></div>
+          <div class="overview-row"><span>Catatan tersimpan</span><strong id="analyticsNotes">0</strong></div>
+          <div class="overview-row"><span>Tugas belum selesai</span><strong id="analyticsPending">0</strong></div>
+        </article>
+      </section>
+
+      <section class="page" id="settings">
+        <div class="section-intro"><div><h2>Settings</h2><p>Atur profil MyStudy-mu.</p></div></div>
+        <article class="panel settings-panel">
+          <h3>Student Profile</h3>
+          <label>Nama kamu</label>
+          <input id="nameInput" class="form-input" placeholder="Masukkan nama">
+          <button class="primary-btn" id="saveName">Simpan profil</button>
+          <hr>
+          <h3>Data & Storage</h3>
+          <p class="muted">Data MyStudy disimpan di browser perangkat ini menggunakan LocalStorage.</p>
+          <button class="soft-btn" id="exportData">↓ Export backup JSON</button>
+          <label class="import-label">↑ Import backup JSON<input type="file" id="importData" accept=".json,application/json"></label>
+          <button class="danger-btn" id="resetData">Hapus semua data</button>
+        </article>
+      </section>
+
+      <footer>Made for your better study days <span>✦</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
